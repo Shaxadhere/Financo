@@ -31,3 +31,7 @@
 
   </body>
 </html>
+
+<?php
+include_once('../../errors/errors.php');
+?>

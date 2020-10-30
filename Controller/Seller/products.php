@@ -6,8 +6,11 @@ getHeader("Products", "header.php");
 
 $fetched = fetchData("tbl_product", connect());
 
-               
+$error = "";
 
+if(isset($_GET['error'])){
+  $error = $_GET['error'];
+}
          
 ?>
 
@@ -15,7 +18,7 @@ $fetched = fetchData("tbl_product", connect());
     <div>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb breadcrumb-style1 mg-b-10">
-                <li class="breadcrumb-item"><a href="dashboard-one.html#">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Products</li>
              </ol>
         </nav>
@@ -52,7 +55,7 @@ $fetched = fetchData("tbl_product", connect());
                 echo "<td>".$row['Processor']."</td>";
                 echo "<td>".$row['Quantity']."</td>";
                 echo "<td>".$row['PurchasedIn']."</td>";
-                echo "<td><a href='viewProduct?uuid=".$row['PK_ID']."' class='btn btn-xs btn-outline-info'>View</a></td>";
+                echo "<td><button id='viewProduct".$row['PK_ID']."' class='btn btn-xs btn-outline-info'>View</button></td>";
                 echo "</tr>";
               }
               
@@ -74,30 +77,41 @@ $fetched = fetchData("tbl_product", connect());
           <div class="modal-body">
 
 
-          <form method="post" action="ProductModal">
+          <form method="post" action="../../Model/products">
+
+          <?php
+          
+          if(!empty($error)){
+            echo "<div class='form-group'>";
+            echo "<label for='error' style='color:red'>$error</label>";
+            echo "</div>";
+          }
+          
+          ?>
+
            <div class="form-group">
           <label for="inputAddress">Product Name</label>
-          <input type="text" class="form-control" id="inputAddress" placeholder="Macbok Pro 2020">
+          <input type="text" required="Product Name is Required" name="ProductName" class="form-control" id="inputAddress" placeholder="Macbok Pro 2020">
           </div>
 
           
         <div class="form-row">
           <div class="form-group col-md-5">
             <label>Specifications</label>
-            <input type="text" class="form-control" placeholder="Processor">
+            <input type="text" required="Processor is required" name="Processor" class="form-control" placeholder="Processor">
           </div>
           <div class="form-group col-md-3 d-flex align-items-end">
-            <input type="text" class="form-control" placeholder="Ram">
+            <input type="text" name="Ram" class="form-control" placeholder="Ram">
           </div>
           <div class="form-group col-md-4 d-flex align-items-end">
-            <input type="text" class="form-control" placeholder="Storage">
+            <input type="text" name="Storage" class="form-control" placeholder="Storage">
           </div>
         </div>
 
         <div class="form-row">
            <div class="form-group col-md-6">
             <label for="inputEmail4">Purchased From</label>
-            <input type="text" class="form-control" placeholder="Vendor Name">
+            <input type="text" required="Vender name is required" name="PurchasedFrom" class="form-control" placeholder="Vendor Name">
           </div>
           <div class="form-group col-md-6">
             <label for="inputPassword4">Purchased In</label>
@@ -105,7 +119,7 @@ $fetched = fetchData("tbl_product", connect());
               <div class="input-group-prepend">
                 <span class="input-group-text">PKR</span>
               </div>
-              <input type="number" class="form-control">
+              <input type="number" required="Purchased In is required" name="PurchasedIn" class="form-control">
               <div class="input-group-append">
                 <span class="input-group-text">.00</span>
               </div>
@@ -116,31 +130,31 @@ $fetched = fetchData("tbl_product", connect());
           <div class="form-row">
            <div class="form-group col-md-4">
             <label for="inputEmail4">Purchase Date</label>
-            <input type="date" class="form-control hasDatepicker" placeholder="Choose date" id="datepicker5">
+            <input type="date" required="PurchaseDate is required" name="PurchaseDate" class="form-control hasDatepicker" placeholder="Choose date" id="datepicker5">
           </div>
           <div class="form-group col-md-4">
             <label for="inputPassword4">Quantity</label>
-            <input type="number" class="form-control" placeholder="1,2,3 etc">
+            <input type="number" required="Quantity is required" name="Qty" value="1" class="form-control" placeholder="1,2,3 etc">
           </div>
           <div class="form-group col-md-4">
             <label for="inputPassword4">Accessories</label>
-            <input type="number" class="form-control" placeholder="box, charger etc">
+            <input type="text" name="Accessories" class="form-control" placeholder="box, charger etc">
           </div>
           </div>
 
           <div class="form-group">
           <label for="inputAddress">Problem</label>
-          <input type="text" class="form-control" id="inputAddress" placeholder="Write problem if any">
+          <input type="text" name="Problem" class="form-control" id="inputAddress" placeholder="Write problem if any">
           </div>
 
           <div class="form-group">
           <label for="inputAddress">Description</label>
-          <input type="text" class="form-control" id="inputAddress" placeholder="Describe your product..">
+          <input type="text" name="Description" class="form-control" id="inputAddress" placeholder="Describe your product..">
           </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary tx-13" data-dismiss="modal">Close</button>
-            <input type="submit" class="btn btn-primary tx-13" value="Save changes">
+            <input name="addProduct" type="submit" class="btn btn-primary tx-13" value="Save changes">
             </form>
           </div>
         </div>
@@ -169,9 +183,28 @@ getFooter("footer.php");
         $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
 
         
-
+       
       });
 
+      $(document).ready(function() {
+        if(window.location.href.indexOf('#addnew') != -1) {
+          $('#addnew').modal('show');
+        }
+      });
 
-     
+      var today = new Date();
+      var dd = String(today.getDate()).padStart(2, '0');
+      var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+      var yyyy = today.getFullYear();
+
+      today = dd + '/' + mm + '/' + yyyy;
+      document.getElementById("#datepicker5").value = today;
+
+
+      $("#viewProduct1").click(function(){
+        $.get("viewProduct?uuid=1", function(data){
+          alert("Data: " + data);
+        });
+      });
+         
     </script>

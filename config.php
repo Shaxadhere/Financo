@@ -12,4 +12,5 @@ function connect(){
 
 include_once('assets/phprapid/rapid.php');
 
+
 ?>

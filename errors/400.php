@@ -9,7 +9,7 @@
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="../assets/template/assets/img/favicon.png">
 
-    <title>505 Access Forbidden</title>
+    <title>400 Bad Request</title>
 
     <!-- DashForge CSS -->
     <link rel="stylesheet" href="../assets/template/assets/css/dashforge.css">
@@ -34,10 +34,10 @@
     <div class="content content-fixed content-auth-alt">
       <div class="container ht-100p tx-center">
         <div class="ht-100p d-flex flex-column align-items-center justify-content-center">
-          <div class="wd-70p wd-sm-250 wd-lg-300 mg-b-15"><img src="../assets/template/assets/img/img22.png" class="img-fluid" alt=""></div>
-          <h1 class="tx-color-01 tx-24 tx-sm-32 tx-lg-36 mg-xl-b-5">505 Forbidden</h1>
-          <h5 class="tx-16 tx-sm-18 tx-lg-20 tx-normal mg-b-20">Oopps. Something is broken.</h5>
-          <p class="tx-color-03 mg-b-30">We've been automatically alerted of the issue and will work to fix it asap.</p>
+          <div class="wd-70p wd-sm-250 wd-lg-300 mg-b-15"><img src="../assets/template/assets/img/img41.png" class="img-fluid" alt=""></div>
+          <h1 class="tx-color-01 tx-24 tx-sm-32 tx-lg-36 mg-xl-b-5">400 Bad Request</h1>
+          <h5 class="tx-16 tx-sm-18 tx-lg-20 tx-normal mg-b-20">Something with your url.</h5>
+          <p class="tx-color-03 mg-b-30">You followed the record that might be deleted or is not in the list</p>
 
         </div>
       </div><!-- container -->

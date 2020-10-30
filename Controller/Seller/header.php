@@ -29,7 +29,7 @@
 
     <aside class="aside aside-fixed">
       <div class="aside-header">
-        <a href="index" class="aside-logo">Fin<span>anco</span></a>
+        <a href="index" class="aside-logo">Finan<span>co</span></a>
         <a href="index" class="aside-menu-link">
           <i data-feather="menu"></i>
           <i data-feather="x"></i>

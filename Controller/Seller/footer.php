@@ -20,7 +20,6 @@
     <!-- append theme customizer -->
     <script src="../../assets/template/lib/js-cookie/js.cookie.js"></script>
     <script src="../../assets/template/assets/js/dashboard-one.js"></script>
-    <script src="../../assets/template/assets/js/dashforge.settings.js"></script>
 
     <!-- datatables-->
     <script src="../../assets/template/lib/datatables.net/js/jquery.dataTables.min.js"></script>

@@ -35,7 +35,7 @@ if(isset($_GET['error'])){
 <br><br>
 
         <div data-label="Example" class="df-example demo-table">
-          <table id="example4" class="table">
+          <table id="table" class="table">
             <thead>
               <tr>
                 <th class="wd-20p">Product Name</th>
@@ -55,7 +55,7 @@ if(isset($_GET['error'])){
                 echo "<td>".$row['Processor']."</td>";
                 echo "<td>".$row['Quantity']."</td>";
                 echo "<td>".$row['PurchasedIn']."</td>";
-                echo "<td><button id='viewProduct".$row['PK_ID']."' class='btn btn-xs btn-outline-info'>View</button></td>";
+                echo "<td><button id='viewProduct' value='".$row['PK_ID']."' class='btn btn-xs btn-outline-info'>View</button></td>";
                 echo "</tr>";
               }
               
@@ -90,8 +90,8 @@ if(isset($_GET['error'])){
           ?>
 
            <div class="form-group">
-          <label for="inputAddress">Product Name</label>
-          <input type="text" required="Product Name is Required" name="ProductName" class="form-control" id="inputAddress" placeholder="Macbok Pro 2020">
+          <label>Product Name</label>
+          <input type="text" required="Product Name is Required" name="ProductName" class="form-control" id="ProductName" placeholder="Macbok Pro 2020">
           </div>
 
           
@@ -144,12 +144,12 @@ if(isset($_GET['error'])){
 
           <div class="form-group">
           <label for="inputAddress">Problem</label>
-          <input type="text" name="Problem" class="form-control" id="inputAddress" placeholder="Write problem if any">
+          <input type="text" name="Problem" class="form-control" id="Problem" placeholder="Write problem if any">
           </div>
 
           <div class="form-group">
           <label for="inputAddress">Description</label>
-          <input type="text" name="Description" class="form-control" id="inputAddress" placeholder="Describe your product..">
+          <input type="text" name="Description" class="form-control" id="Description" placeholder="Describe your product..">
           </div>
           </div>
           <div class="modal-footer">
@@ -161,17 +161,42 @@ if(isset($_GET['error'])){
       </div>
     </div>
 
-        
+
+    <button id="view" href="#details" data-href="1" data-toggle="modal" class="btn btn-sm btn-outline-primary">View</button>
+
+    <div id="modelForm"></div>
 
 
 <?php
 getFooter("footer.php");
 ?>
- <script>
+ <script> 
+
+    $(document).ready(function () {
+      $("#view").click(function () {
+        // Get he content from the input box
+        var uuid = 1
+        $.ajax({
+          type: "POST",
+          url: "viewProduct",
+          data: { uuid: uuid },
+          success: function (response) {
+            alert(response);
+            $('#modelForm').replaceWith(response);
+          },
+          error: function (e) {
+            alert(e); 
+          }
+        })
+      });
+    });
+
+
+
       $(function(){
         'use strict'
 
-        $('#example4').DataTable({
+        $('#table').DataTable({
           language: {
             searchPlaceholder: 'Search...',
             sSearch: '',
@@ -179,11 +204,6 @@ getFooter("footer.php");
           }
         });
 
-        // Select2
-        $('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
-
-        
-       
       });
 
       $(document).ready(function() {
@@ -192,19 +212,12 @@ getFooter("footer.php");
         }
       });
 
-      var today = new Date();
-      var dd = String(today.getDate()).padStart(2, '0');
-      var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-      var yyyy = today.getFullYear();
+      // var today = new Date();
+      // var dd = String(today.getDate()).padStart(2, '0');
+      // var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+      // var yyyy = today.getFullYear();
 
-      today = dd + '/' + mm + '/' + yyyy;
-      document.getElementById("#datepicker5").value = today;
-
-
-      $("#viewProduct1").click(function(){
-        $.get("viewProduct?uuid=1", function(data){
-          alert("Data: " + data);
-        });
-      });
+      // today = dd + '/' + mm + '/' + yyyy;
+      // document.getElementById("#datepicker5").value = today;
          
     </script>

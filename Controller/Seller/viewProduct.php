@@ -12,10 +12,9 @@ else{
     http_response_code(400);
 }
 
-include_once('footer.php');
 ?>
 
-<div class="modal fade" id="addnew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel4" aria-hidden="true">
+<div class="modal fade" id="viewDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel4" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content tx-14">
           <div class="modal-header">
@@ -35,4 +34,9 @@ include_once('footer.php');
       </div>
     </div>
 
-    
+
+    <script>
+     $(document).ready(function() {
+        $('#viewDetails').modal('show');
+      });
+    </script>
